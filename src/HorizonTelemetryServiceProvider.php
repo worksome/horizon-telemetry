@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace VendorName\Skeleton;
+namespace Worksome\HorizonTelemetry;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use VendorName\Skeleton\Commands\SkeletonCommand;
+use Worksome\HorizonTelemetry\Commands\HorizonTelemetryCommand;
 
-class SkeletonServiceProvider extends PackageServiceProvider
+class HorizonTelemetryServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
@@ -18,10 +18,10 @@ class SkeletonServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('skeleton')
+            ->name('horizon-telemetry')
             ->hasConfigFile()
             ->hasViews()
-            ->hasMigration('create_skeleton_table')
-            ->hasCommand(SkeletonCommand::class);
+            ->hasMigration('create_horizon-telemetry_table')
+            ->hasCommand(HorizonTelemetryCommand::class);
     }
 }

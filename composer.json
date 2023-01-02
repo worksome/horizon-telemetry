@@ -1,17 +1,17 @@
 {
-    "name": "vendor-slug/package-slug",
-    "description": ":package_description",
+    "name": "worksome/horizon-telemetry",
+    "description": "An Opentelemetry implementation for Laravel Horizon and queues",
     "keywords": [
-        ":vendor_name",
+        "worksome",
         "laravel",
-        ":package_slug"
+        "horizon-telemetry"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/worksome/horizon-telemetry",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Oliver Nybroe",
+            "email": "oliver@worksome.com",
             "role": "Developer"
         }
     ],
@@ -33,13 +33,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories"
+            "Worksome\\HorizonTelemetry\\": "src",
+            "Worksome\\HorizonTelemetry\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "Worksome\\HorizonTelemetry\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -65,10 +65,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Worksome\\HorizonTelemetry\\HorizonTelemetryServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "HorizonTelemetry": "Worksome\\HorizonTelemetry\\Facades\\HorizonTelemetry"
             }
         }
     },

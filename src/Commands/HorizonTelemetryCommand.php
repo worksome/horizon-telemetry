@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace VendorName\Skeleton\Commands;
+namespace Worksome\HorizonTelemetry\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class HorizonTelemetryCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'horizon-telemetry';
 
     public $description = 'My command';
 
