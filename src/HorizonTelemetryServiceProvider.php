@@ -4,17 +4,21 @@ declare(strict_types=1);
 
 namespace Worksome\HorizonTelemetry;
 
-use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Worksome\HorizonTelemetry\Commands\HorizonTelemetryCommand;
+use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Support\ServiceProvider;
+use Worksome\HorizonTelemetry\Metrics\CurrentWorkloadMetric;
 
-class HorizonTelemetryServiceProvider extends PackageServiceProvider
+class HorizonTelemetryServiceProvider extends ServiceProvider
 {
-    public function configurePackage(Package $package): void
+    public function boot(): void
     {
-        $package
-            ->name('horizon-telemetry')
-            ->hasConfigFile()
-            ->hasCommand(HorizonTelemetryCommand::class);
+        $this->app->booted(function () {
+            /** @var Schedule $schedule */
+            $schedule = $this->app->make(Schedule::class);
+
+            $schedule->call(CurrentWorkloadMetric::class)
+                ->everyTenMinutes()
+                ->name('CurrentWorkloadMetric');
+        });
     }
 }
