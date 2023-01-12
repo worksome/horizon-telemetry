@@ -20,7 +20,7 @@ readonly class FailedJobsListener
     {
         $meter = $this->meterProvider->getMeter(MeterName::FailedJobs);
 
-        $meter->createObservableCounter(
+        $meter->createObservableUpDownCounter(
             MeterName::FailedJobs->value,
             MeterUnit::Jobs->value,
             'The number of failed jobs.',
