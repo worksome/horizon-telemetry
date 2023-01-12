@@ -30,24 +30,27 @@ class HorizonTelemetryServiceProvider extends ServiceProvider
         $this->app->booted(function () {
             /** @var Schedule $schedule */
             $schedule = $this->app->make(Schedule::class);
-            /** @var Repository $schedule */
+            /** @var Repository $config */
             $config = $this->app->make(Repository::class);
 
             if ($currentMasterSupervisorsSchedule = $config->get(
                 self::CONFIG_PREFIX . MeterName::CurrentMasterSupervisors->value
             )) {
+                /** @var string $currentMasterSupervisorsSchedule */
                 $schedule->call(CurrentMasterSupervisorsMetric::class)
                     ->cron($currentMasterSupervisorsSchedule)
                     ->name(MeterName::CurrentMasterSupervisors->value);
             }
 
             if ($currentProcessesSchedule = $config->get(self::CONFIG_PREFIX . MeterName::CurrentProcesses->value)) {
+                /** @var string $currentProcessesSchedule */
                 $schedule->call(CurrentProcessesMetric::class)
                     ->cron($currentProcessesSchedule)
                     ->name(MeterName::CurrentProcesses->value);
             }
 
             if ($currentJobsSchedule = $config->get(self::CONFIG_PREFIX . MeterName::CurrentJobs->value)) {
+                /** @var string $currentJobsSchedule */
                 $schedule->call(CurrentJobsMetric::class)
                     ->cron($currentJobsSchedule)
                     ->name(MeterName::CurrentJobs->value);
