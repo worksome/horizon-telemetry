@@ -6,6 +6,7 @@ namespace Worksome\HorizonTelemetry;
 
 use OpenTelemetry\API\Metrics\MeterInterface;
 use OpenTelemetry\API\Metrics\MeterProviderInterface;
+use Worksome\HorizonTelemetry\Enums\MeterName;
 
 readonly class MeterProvider
 {
