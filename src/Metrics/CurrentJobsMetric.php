@@ -6,10 +6,12 @@ namespace Worksome\HorizonTelemetry\Metrics;
 
 use Illuminate\Support\Collection;
 use Laravel\Horizon\Contracts\WorkloadRepository;
-use Worksome\HorizonTelemetry\MeterName;
+use OpenTelemetry\API\Metrics\ObserverInterface;
+use Worksome\HorizonTelemetry\Enums\MeterName;
+use Worksome\HorizonTelemetry\Enums\MeterUnit;
 use Worksome\HorizonTelemetry\MeterProvider;
 
-readonly class CurrentWorkloadMetric
+readonly class CurrentJobsMetric
 {
     public function __construct(
         private MeterProvider $meterProvider,
@@ -19,23 +21,17 @@ readonly class CurrentWorkloadMetric
 
     public function __invoke(): void
     {
-        $meter = $this->meterProvider->getMeter(MeterName::CurrentWorkload);
+        $meter = $this->meterProvider->getMeter(MeterName::CurrentJobs);
 
         Collection::make($this->workloadRepository->get())
             ->each(function (array $workload) use ($meter) {
                 /** @var array{name: string, length: integer, wait: double, processes: int, split_queues: array} $workload */
 
-                $counter = $meter->createHistogram(
-                    MeterName::CurrentWorkload->with($workload['name'])
-                );
-
-                $counter->record(
-                    $workload['length'],
-                    [
-                        'length' => $workload['length'],
-                        'wait' => $workload['wait'],
-                        'processes' => $workload['processes'],
-                    ],
+                $meter->createObservableGauge(
+                    MeterName::CurrentJobs->with($workload['name']),
+                    MeterUnit::Jobs->value,
+                    'The total number of jobs per queue.',
+                    fn (ObserverInterface $observer) => $observer->observe($workload['length'])
                 );
             });
     }
