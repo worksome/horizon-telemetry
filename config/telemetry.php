@@ -7,7 +7,7 @@ use Worksome\HorizonTelemetry\Enums\MeterName;
 return [
     'horizon' => [
         /**
-         * The crontab schedule for the number of current master supervisors.
+         * The crontab schedule for the current number of master supervisors.
          *
          * This can be either a crontab string, or `false` to disable the check.
          *
@@ -16,7 +16,7 @@ return [
         MeterName::CurrentMasterSupervisors->value => '*/10 * * * *',
 
         /**
-         * The crontab schedule for the number of current processes in each queue
+         * The crontab schedule for the current number of processes in each queue
          *
          * This can be either a crontab string, or `false` to disable the check.
          *
@@ -25,13 +25,13 @@ return [
         MeterName::CurrentProcesses->value => '*/10 * * * *',
 
         /**
-         * The crontab schedule for the number of current jobs in each queue.
+         * The crontab schedule for the current number of jobs in each queue.
          *
          * This can be either a crontab string, or `false` to disable the check.
          *
          * The default is 10 minutes, this can be any configured crontab, or set to `false` to disable this.
          */
-        MeterName::CurrentWorkload->value => '*/10 * * * *',
+        MeterName::CurrentJobs->value => '*/10 * * * *',
 
         /**
          * Whether the failed job metric listener is enabled.

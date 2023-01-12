@@ -13,7 +13,7 @@ use Worksome\HorizonTelemetry\Enums\MeterName;
 use Worksome\HorizonTelemetry\Listeners\FailedJobsListener;
 use Worksome\HorizonTelemetry\Metrics\CurrentMasterSupervisorsMetric;
 use Worksome\HorizonTelemetry\Metrics\CurrentProcessesMetric;
-use Worksome\HorizonTelemetry\Metrics\CurrentWorkloadMetric;
+use Worksome\HorizonTelemetry\Metrics\CurrentJobsMetric;
 
 class HorizonTelemetryServiceProvider extends ServiceProvider
 {
@@ -47,10 +47,10 @@ class HorizonTelemetryServiceProvider extends ServiceProvider
                     ->name(MeterName::CurrentProcesses->value);
             }
 
-            if ($currentWorkloadSchedule = $config->get(self::CONFIG_PREFIX . MeterName::CurrentWorkload->value)) {
-                $schedule->call(CurrentWorkloadMetric::class)
-                    ->cron($currentWorkloadSchedule)
-                    ->name(MeterName::CurrentWorkload->value);
+            if ($currentJobsSchedule = $config->get(self::CONFIG_PREFIX . MeterName::CurrentJobs->value)) {
+                $schedule->call(CurrentJobsMetric::class)
+                    ->cron($currentJobsSchedule)
+                    ->name(MeterName::CurrentJobs->value);
             }
         });
     }

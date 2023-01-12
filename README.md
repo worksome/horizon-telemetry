@@ -37,13 +37,13 @@ The metrics will be registered under the name `horizon_current_processes.<queue_
 The default schedule for this is every 10 minutes (`*/10 * * * *`), to configure this,
 add `MeterName::CurrentProcesses->value` under a `horizon` key in your `telemetry.php` config file.
 
-#### [`CurrentWorkloadMetric`](src/Metrics/CurrentWorkloadMetric.php)
+#### [`CurrentJobsMetric`](src/Metrics/CurrentJobsMetric.php)
 
-The `CurrentWorkloadMetric` will register the current number of jobs in each queue.  
-The metrics will be registered under the name `horizon_current_workload.<queue_name>`.
+The `CurrentJobsMetric` will register the current number of jobs in each queue.  
+The metrics will be registered under the name `horizon_current_jobs.<queue_name>`.
 
 The default schedule for this is every 10 minutes (`*/10 * * * *`), to configure this,
-add `MeterName::CurrentWorkload->value` under a `horizon` key in your `telemetry.php` config file.
+add `MeterName::CurrentJobs->value` under a `horizon` key in your `telemetry.php` config file.
 
 ### Event Listeners
 
