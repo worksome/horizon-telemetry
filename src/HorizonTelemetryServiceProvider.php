@@ -8,9 +8,11 @@ use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Queue\Events\JobFailed;
+use Illuminate\Queue\Events\JobProcessed;
 use Illuminate\Support\ServiceProvider;
 use Worksome\HorizonTelemetry\Enums\MeterName;
 use Worksome\HorizonTelemetry\Listeners\FailedJobsListener;
+use Worksome\HorizonTelemetry\Listeners\ProcessedJobsListener;
 use Worksome\HorizonTelemetry\Metrics\CurrentMasterSupervisorsMetric;
 use Worksome\HorizonTelemetry\Metrics\CurrentProcessesMetric;
 use Worksome\HorizonTelemetry\Metrics\CurrentJobsMetric;
@@ -25,6 +27,10 @@ class HorizonTelemetryServiceProvider extends ServiceProvider
     {
         if ($config->get(self::CONFIG_PREFIX . MeterName::FailedJobs->value)) {
             $dispatcher->listen(JobFailed::class, FailedJobsListener::class);
+        }
+
+        if ($config->get(self::CONFIG_PREFIX . MeterName::ProcessedJobs->value)) {
+            $dispatcher->listen(JobProcessed::class, ProcessedJobsListener::class);
         }
 
         $this->app->booted(function () {
