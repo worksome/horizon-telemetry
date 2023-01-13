@@ -26,7 +26,7 @@ readonly class ProcessedJobsListener
             MeterUnit::Jobs->value,
             'The number of processed jobs.',
             fn (ObserverInterface $observer) => $observer->observe(1, [
-                'name' => $event->job->getName(),
+                'name' => $event->job->resolveName(),
                 'queue' => $event->job->getQueue(),
             ])
         );
