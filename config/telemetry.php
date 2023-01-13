@@ -39,5 +39,12 @@ return [
          * The default is `true`, set to `false` to disable this.
          */
         MeterName::FailedJobs->value => true,
+
+        /**
+         * Whether the processed job metric listener is enabled.
+         *
+         * The default is `true`, set to `false` to disable this.
+         */
+        MeterName::ProcessedJobs->value => true,
     ],
 ];
