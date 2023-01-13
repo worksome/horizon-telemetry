@@ -55,6 +55,15 @@ This metric will be registered under the name `horizon_failed_jobs`.
 The default schedule for this is `true`, to disable this event listener,
 add `MeterName::FailedJobs->value => false` under a `horizon` key in your `telemetry.php` config file.
 
+#### [`ProcessedJobsListener`](src/Listeners/ProcessedJobsListener.php)
+
+The `ProcessedJobsListener` listener will create an observable counter that will increment each time a job is processed.
+This metric will be registered under the name `horizon_processed_jobs`.
+
+The default schedule for this is `true`, to disable this event listener,
+add `MeterName::ProcessedJobs->value => false` under a `horizon` key in your `telemetry.php` config file.
+
+
 ## Testing
 
 ```bash
