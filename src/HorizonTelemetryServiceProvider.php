@@ -13,9 +13,9 @@ use Illuminate\Support\ServiceProvider;
 use Worksome\HorizonTelemetry\Enums\MeterName;
 use Worksome\HorizonTelemetry\Listeners\FailedJobsListener;
 use Worksome\HorizonTelemetry\Listeners\ProcessedJobsListener;
+use Worksome\HorizonTelemetry\Metrics\CurrentJobsMetric;
 use Worksome\HorizonTelemetry\Metrics\CurrentMasterSupervisorsMetric;
 use Worksome\HorizonTelemetry\Metrics\CurrentProcessesMetric;
-use Worksome\HorizonTelemetry\Metrics\CurrentJobsMetric;
 
 class HorizonTelemetryServiceProvider extends ServiceProvider
 {
@@ -23,19 +23,22 @@ class HorizonTelemetryServiceProvider extends ServiceProvider
 
     private const CONFIG_PREFIX = 'telemetry.horizon.';
 
-    public function boot(Dispatcher $dispatcher, Repository $config): void
+    public function boot(): void
     {
-        if ($config->get(self::CONFIG_PREFIX . MeterName::FailedJobs->value)) {
-            $dispatcher->listen(JobFailed::class, FailedJobsListener::class);
-        }
+        $this->callAfterResolving(Dispatcher::class, function (Dispatcher $dispatcher) {
+            /** @var Repository $config */
+            $config = $this->app->make(Repository::class);
 
-        if ($config->get(self::CONFIG_PREFIX . MeterName::ProcessedJobs->value)) {
-            $dispatcher->listen(JobProcessed::class, ProcessedJobsListener::class);
-        }
+            if ($config->get(self::CONFIG_PREFIX . MeterName::FailedJobs->value)) {
+                $dispatcher->listen(JobFailed::class, FailedJobsListener::class);
+            }
 
-        $this->app->booted(function () {
-            /** @var Schedule $schedule */
-            $schedule = $this->app->make(Schedule::class);
+            if ($config->get(self::CONFIG_PREFIX . MeterName::ProcessedJobs->value)) {
+                $dispatcher->listen(JobProcessed::class, ProcessedJobsListener::class);
+            }
+        });
+
+        $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {
             /** @var Repository $config */
             $config = $this->app->make(Repository::class);
 
