@@ -64,6 +64,19 @@ The default schedule for this is `true`, to disable this event listener,
 add `MeterName::ProcessedJobs->value => false` under a `horizon` key in your `telemetry.php` config file.
 
 
+#### [`ProcessedJobsPeakMemoryUsageListener`](src/Listeners/ProcessedJobsPeakMemoryUsageListener.php)
+
+The `ProcessedJobsPeakMemoryUsageListener` listener will create a histogram over peak memory usage each time a job is processed.
+This metric will be registered under the name `horizon_processed_jobs_peak_memory_usage`.
+
+Two listeners are actually registered here, the secondary listener is [`ProcessedJobsPeakMemoryUsagePreparationListener`](src/Listeners/ProcessedJobsPeakMemoryUsagePreparationListener.php)
+which will take care of clearing the peak memory usage before a job starts, so for long-running queue workers, we get
+the correct number.
+
+The default schedule for this is `true`, to disable this event listener,
+add `MeterName::ProcessedJobsPeakMemoryUsage->value => false` under a `horizon` key in your `telemetry.php` config file.
+
+
 ## Testing
 
 ```bash

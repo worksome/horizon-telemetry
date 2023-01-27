@@ -11,6 +11,7 @@ enum MeterName: string
     case CurrentJobs = 'horizon_current_jobs';
     case FailedJobs = 'horizon_failed_jobs';
     case ProcessedJobs = 'horizon_processed_jobs';
+    case ProcessedJobsPeakMemoryUsage = 'horizon_processed_jobs_peak_memory_usage';
 
     public function with(string ...$names): string
     {

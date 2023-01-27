@@ -9,10 +9,13 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Queue\Events\JobFailed;
 use Illuminate\Queue\Events\JobProcessed;
+use Illuminate\Queue\Events\JobProcessing;
 use Illuminate\Support\ServiceProvider;
 use Worksome\HorizonTelemetry\Enums\MeterName;
 use Worksome\HorizonTelemetry\Listeners\FailedJobsListener;
 use Worksome\HorizonTelemetry\Listeners\ProcessedJobsListener;
+use Worksome\HorizonTelemetry\Listeners\ProcessedJobsPeakMemoryUsageListener;
+use Worksome\HorizonTelemetry\Listeners\ProcessedJobsPeakMemoryUsagePreparationListener;
 use Worksome\HorizonTelemetry\Metrics\CurrentJobsMetric;
 use Worksome\HorizonTelemetry\Metrics\CurrentMasterSupervisorsMetric;
 use Worksome\HorizonTelemetry\Metrics\CurrentProcessesMetric;
@@ -29,12 +32,17 @@ class HorizonTelemetryServiceProvider extends ServiceProvider
             /** @var Repository $config */
             $config = $this->app->make(Repository::class);
 
-            if ($config->get(self::CONFIG_PREFIX . MeterName::FailedJobs->value)) {
+            if ($config->get(self::CONFIG_PREFIX . MeterName::FailedJobs->value, true)) {
                 $dispatcher->listen(JobFailed::class, FailedJobsListener::class);
             }
 
-            if ($config->get(self::CONFIG_PREFIX . MeterName::ProcessedJobs->value)) {
+            if ($config->get(self::CONFIG_PREFIX . MeterName::ProcessedJobs->value, true)) {
                 $dispatcher->listen(JobProcessed::class, ProcessedJobsListener::class);
+            }
+
+            if ($config->get(self::CONFIG_PREFIX . MeterName::ProcessedJobsPeakMemoryUsage->value, true)) {
+                $dispatcher->listen(JobProcessed::class, ProcessedJobsPeakMemoryUsageListener::class);
+                $dispatcher->listen(JobProcessing::class, ProcessedJobsPeakMemoryUsagePreparationListener::class);
             }
         });
 

@@ -9,4 +9,5 @@ enum MeterUnit: string
     case MasterSupervisors = 'master supervisors';
     case Processes = 'processes';
     case Jobs = 'jobs';
+    case Bytes = 'bytes';
 }
