@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Worksome\HorizonTelemetry;
 
 use OpenTelemetry\API\Metrics\MeterInterface;
-use OpenTelemetry\API\Metrics\MeterProviderInterface;
+use OpenTelemetry\SDK\Metrics\MeterProviderInterface;
 use Worksome\HorizonTelemetry\Enums\MeterName;
 
 readonly class MeterProvider
@@ -20,5 +20,10 @@ readonly class MeterProvider
         return $this->meterProvider->getMeter(
             $meter->value
         );
+    }
+
+    public function flush(): void
+    {
+        $this->meterProvider->forceFlush();
     }
 }

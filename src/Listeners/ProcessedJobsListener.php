@@ -30,5 +30,7 @@ readonly class ProcessedJobsListener
                 'queue' => $event->job->getQueue(),
             ])
         );
+
+        $this->meterProvider->flush();
     }
 }

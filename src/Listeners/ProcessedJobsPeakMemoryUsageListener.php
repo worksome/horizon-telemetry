@@ -35,5 +35,7 @@ readonly class ProcessedJobsPeakMemoryUsageListener
                 'queue' => $event->job->getQueue(),
             ]
         );
+
+        $this->meterProvider->flush();
     }
 }
