@@ -32,7 +32,7 @@ class HorizonTelemetryServiceProvider extends ServiceProvider
             /** @var Repository $config */
             $config = $this->app->make(Repository::class);
 
-            if (! $config->get('telemetry.enabled')) {
+            if (! $config->get('telemetry.enabled', true)) {
                 return null;
             }
 
@@ -54,7 +54,7 @@ class HorizonTelemetryServiceProvider extends ServiceProvider
             /** @var Repository $config */
             $config = $this->app->make(Repository::class);
 
-            if (! $config->get('telemetry.enabled')) {
+            if (! $config->get('telemetry.enabled', true)) {
                 return null;
             }
 
