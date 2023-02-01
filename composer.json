@@ -17,15 +17,15 @@
     ],
     "require": {
         "php": "^8.2",
-        "illuminate/contracts": "^9.46",
+        "illuminate/contracts": "^9.46|^10.0",
         "laravel/horizon": "^5.10",
         "open-telemetry/api": "^0.0.17",
-        "worksome/laravel-telemetry": "^0.2.4"
+        "worksome/laravel-telemetry": "^0.3"
     },
     "require-dev": {
         "nunomaduro/collision": "^6.4",
         "nunomaduro/larastan": "^1.0 || ^2.0",
-        "orchestra/testbench": "^7.18",
+        "orchestra/testbench": "^7.18|^8.0",
         "pestphp/pest": "^1.21",
         "pestphp/pest-plugin-parallel": "^1.0",
         "worksome/coding-style": "^2.0",
