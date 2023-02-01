@@ -32,6 +32,10 @@ class HorizonTelemetryServiceProvider extends ServiceProvider
             /** @var Repository $config */
             $config = $this->app->make(Repository::class);
 
+            if (! $config->get('telemetry.enabled', true)) {
+                return null;
+            }
+
             if ($config->get(self::CONFIG_PREFIX . MeterName::FailedJobs->value, true)) {
                 $dispatcher->listen(JobFailed::class, FailedJobsListener::class);
             }
@@ -49,6 +53,10 @@ class HorizonTelemetryServiceProvider extends ServiceProvider
         $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {
             /** @var Repository $config */
             $config = $this->app->make(Repository::class);
+
+            if (! $config->get('telemetry.enabled', true)) {
+                return null;
+            }
 
             if ($currentMasterSupervisorsSchedule = $config->get(
                 self::CONFIG_PREFIX . MeterName::CurrentMasterSupervisors->value
