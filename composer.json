@@ -18,16 +18,16 @@
     "require": {
         "php": "^8.2",
         "illuminate/contracts": "^10.0",
-        "laravel/horizon": "^5.10",
+        "laravel/horizon": "^5.21.3",
         "open-telemetry/api": "^1.0",
         "worksome/laravel-telemetry": "^0.4"
     },
     "require-dev": {
-        "nunomaduro/collision": "^7.0",
-        "nunomaduro/larastan": "^2.0",
-        "orchestra/testbench": "^8.0",
-        "pestphp/pest": "^2.0",
-        "worksome/coding-style": "^2.5"
+        "nunomaduro/collision": "^7.10",
+        "nunomaduro/larastan": "^2.6.4",
+        "orchestra/testbench": "^8.15",
+        "pestphp/pest": "^2.24.3",
+        "worksome/coding-style": "^2.6.1"
     },
     "autoload": {
         "psr-4": {
