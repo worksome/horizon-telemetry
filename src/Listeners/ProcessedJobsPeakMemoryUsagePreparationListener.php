@@ -4,12 +4,7 @@ declare(strict_types=1);
 
 namespace Worksome\HorizonTelemetry\Listeners;
 
-use Illuminate\Queue\Events\JobProcessed;
 use Illuminate\Queue\Events\JobProcessing;
-use OpenTelemetry\API\Metrics\ObserverInterface;
-use Worksome\HorizonTelemetry\Enums\MeterName;
-use Worksome\HorizonTelemetry\Enums\MeterUnit;
-use Worksome\HorizonTelemetry\MeterProvider;
 
 /**
  * Needed for cleaning the peak memory usage variable inside PHP between jobs.

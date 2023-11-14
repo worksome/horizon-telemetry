@@ -24,8 +24,6 @@ class HorizonTelemetryServiceProvider extends ServiceProvider
 {
     private const CONFIG_PATH = __DIR__ . '/../config/telemetry.php';
 
-    private const CONFIG_PREFIX = 'telemetry.horizon.';
-
     public function boot(): void
     {
         $this->callAfterResolving(Dispatcher::class, function (Dispatcher $dispatcher) {
@@ -36,15 +34,15 @@ class HorizonTelemetryServiceProvider extends ServiceProvider
                 return null;
             }
 
-            if ($config->get(self::CONFIG_PREFIX . MeterName::FailedJobs->value, true)) {
+            if ($config->get($this->configKey(MeterName::FailedJobs), true)) {
                 $dispatcher->listen(JobFailed::class, FailedJobsListener::class);
             }
 
-            if ($config->get(self::CONFIG_PREFIX . MeterName::ProcessedJobs->value, true)) {
+            if ($config->get($this->configKey(MeterName::ProcessedJobs), true)) {
                 $dispatcher->listen(JobProcessed::class, ProcessedJobsListener::class);
             }
 
-            if ($config->get(self::CONFIG_PREFIX . MeterName::ProcessedJobsPeakMemoryUsage->value, true)) {
+            if ($config->get($this->configKey(MeterName::ProcessedJobsPeakMemoryUsage), true)) {
                 $dispatcher->listen(JobProcessed::class, ProcessedJobsPeakMemoryUsageListener::class);
                 $dispatcher->listen(JobProcessing::class, ProcessedJobsPeakMemoryUsagePreparationListener::class);
             }
@@ -59,7 +57,7 @@ class HorizonTelemetryServiceProvider extends ServiceProvider
             }
 
             if ($currentMasterSupervisorsSchedule = $config->get(
-                self::CONFIG_PREFIX . MeterName::CurrentMasterSupervisors->value
+                $this->configKey(MeterName::CurrentMasterSupervisors)
             )) {
                 /** @var string $currentMasterSupervisorsSchedule */
                 $schedule->call(CurrentMasterSupervisorsMetric::class)
@@ -67,14 +65,14 @@ class HorizonTelemetryServiceProvider extends ServiceProvider
                     ->name(MeterName::CurrentMasterSupervisors->value);
             }
 
-            if ($currentProcessesSchedule = $config->get(self::CONFIG_PREFIX . MeterName::CurrentProcesses->value)) {
+            if ($currentProcessesSchedule = $config->get($this->configKey(MeterName::CurrentProcesses))) {
                 /** @var string $currentProcessesSchedule */
                 $schedule->call(CurrentProcessesMetric::class)
                     ->cron($currentProcessesSchedule)
                     ->name(MeterName::CurrentProcesses->value);
             }
 
-            if ($currentJobsSchedule = $config->get(self::CONFIG_PREFIX . MeterName::CurrentJobs->value)) {
+            if ($currentJobsSchedule = $config->get($this->configKey(MeterName::CurrentJobs))) {
                 /** @var string $currentJobsSchedule */
                 $schedule->call(CurrentJobsMetric::class)
                     ->cron($currentJobsSchedule)
@@ -86,5 +84,10 @@ class HorizonTelemetryServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(self::CONFIG_PATH, 'telemetry');
+    }
+
+    private function configKey(MeterName $meterName): string
+    {
+        return "telemetry.horizon.{$meterName->value}";
     }
 }
