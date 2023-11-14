@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Worksome\HorizonTelemetry\Enums\MeterName;
 
 return [
+
     'horizon' => [
         /**
          * The crontab schedule for the current number of master supervisors.
@@ -54,4 +55,5 @@ return [
          */
         MeterName::ProcessedJobsPeakMemoryUsage->value => true,
     ],
+
 ];
