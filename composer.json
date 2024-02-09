@@ -17,17 +17,17 @@
     ],
     "require": {
         "php": "^8.2",
-        "illuminate/contracts": "^10.0",
-        "laravel/horizon": "^5.21.3",
+        "illuminate/contracts": "^10.0 || ^11.0",
+        "laravel/horizon": "^5.22.1",
         "open-telemetry/api": "^1.0",
         "worksome/laravel-telemetry": "^0.4"
     },
     "require-dev": {
-        "nunomaduro/collision": "^7.10",
-        "nunomaduro/larastan": "^2.6.4",
-        "orchestra/testbench": "^8.15",
-        "pestphp/pest": "^2.24.3",
-        "worksome/coding-style": "^2.6.1"
+        "nunomaduro/collision": "^7.10 || ^8.1",
+        "larastan/larastan": "^2.8",
+        "orchestra/testbench": "^8.15 || ^9.0",
+        "pestphp/pest": "^2.33",
+        "worksome/coding-style": "^2.8"
     },
     "autoload": {
         "psr-4": {
