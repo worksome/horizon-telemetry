@@ -20,7 +20,7 @@
         "illuminate/contracts": "^10.0 || ^11.0",
         "laravel/horizon": "^5.22.1",
         "open-telemetry/api": "^1.0",
-        "worksome/laravel-telemetry": "^0.4"
+        "worksome/laravel-telemetry": "^0.5"
     },
     "require-dev": {
         "nunomaduro/collision": "^7.10 || ^8.1",

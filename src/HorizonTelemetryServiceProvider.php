@@ -30,8 +30,8 @@ class HorizonTelemetryServiceProvider extends ServiceProvider
             /** @var Repository $config */
             $config = $this->app->make(Repository::class);
 
-            if (! $config->get('telemetry.enabled', true)) {
-                return null;
+            if ($config->get('telemetry.sdk.disabled')) {
+                return;
             }
 
             if ($config->get($this->configKey(MeterName::FailedJobs), true)) {
@@ -52,8 +52,8 @@ class HorizonTelemetryServiceProvider extends ServiceProvider
             /** @var Repository $config */
             $config = $this->app->make(Repository::class);
 
-            if (! $config->get('telemetry.enabled', true)) {
-                return null;
+            if ($config->get('telemetry.sdk.disabled')) {
+                return;
             }
 
             if ($currentMasterSupervisorsSchedule = $config->get(
