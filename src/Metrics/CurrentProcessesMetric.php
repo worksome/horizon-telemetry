@@ -23,18 +23,17 @@ readonly class CurrentProcessesMetric
     {
         $meter = $this->meterProvider->getMeter(MeterName::CurrentProcesses);
 
-        Collection::make($this->workloadRepository->get())
-            ->each(
-                function (array $workload) use ($meter) {
-                    /** @var array{name: string, length: integer, wait: double, processes: int, split_queues: array} $workload */
+        /** @var list<array{name: string, length: integer, wait: double, processes: int, split_queues: array}> $workloads */
+        $workloads = $this->workloadRepository->get();
 
-                    $meter->createObservableGauge(
-                        MeterName::CurrentProcesses->with($workload['name']),
-                        MeterUnit::Processes->value,
-                        'The total number of processes per queue.',
-                        fn (ObserverInterface $observer) => $observer->observe($workload['processes'])
-                    );
-                }
-            );
+        Collection::make($workloads)
+            ->each(function (array $workload) use ($meter) {
+                $meter->createObservableGauge(
+                    MeterName::CurrentProcesses->with($workload['name']),
+                    MeterUnit::Processes->value,
+                    'The total number of processes per queue.',
+                    fn (ObserverInterface $observer) => $observer->observe($workload['processes'])
+                );
+            });
     }
 }
