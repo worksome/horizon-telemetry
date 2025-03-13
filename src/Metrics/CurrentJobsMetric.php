@@ -23,7 +23,10 @@ readonly class CurrentJobsMetric
     {
         $meter = $this->meterProvider->getMeter(MeterName::CurrentJobs);
 
-        Collection::make($this->workloadRepository->get())
+        /** @var list<array{name: string, length: integer, wait: double, processes: int, split_queues: array}> $workloads */
+        $workloads = $this->workloadRepository->get();
+
+        Collection::make($workloads)
             ->each(function (array $workload) use ($meter) {
                 /** @var array{name: string, length: integer, wait: double, processes: int, split_queues: array} $workload */
 

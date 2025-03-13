@@ -16,18 +16,19 @@
         }
     ],
     "require": {
-        "php": "^8.2",
-        "illuminate/contracts": "^10.0 || ^11.0",
-        "laravel/horizon": "^5.22.1",
+        "php": "^8.3",
+        "illuminate/contracts": "^11.0 || ^12.0",
+        "laravel/horizon": "^5.31",
         "open-telemetry/api": "^1.0",
-        "worksome/laravel-telemetry": "^0.5"
+        "worksome/laravel-telemetry": "^0.5.2"
     },
     "require-dev": {
-        "nunomaduro/collision": "^7.10 || ^8.1",
-        "larastan/larastan": "^2.8",
-        "orchestra/testbench": "^8.15 || ^9.0",
-        "pestphp/pest": "^2.33",
-        "worksome/coding-style": "^2.8"
+        "larastan/larastan": "^3.1",
+        "nunomaduro/collision": "^7.10 || ^8.1.1",
+        "orchestra/testbench": "^9.12 || ^10.1",
+        "pestphp/pest": "^3.7",
+        "pestphp/pest-plugin-laravel": "^3.1",
+        "worksome/coding-style": "^3.2"
     },
     "autoload": {
         "psr-4": {
@@ -54,10 +55,11 @@
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            "pestphp/pest-plugin": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
-            "worksome/coding-style": true,
-            "php-http/discovery": true
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true,
+            "tbachert/spi": true,
+            "worksome/coding-style": true
         }
     },
     "extra": {
