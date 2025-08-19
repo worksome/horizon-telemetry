@@ -23,7 +23,7 @@ readonly class CurrentProcessesMetric
     {
         $meter = $this->meterProvider->getMeter(MeterName::CurrentProcesses);
 
-        /** @var list<array{name: string, length: integer, wait: double, processes: int, split_queues: array}> $workloads */
+        /** @var list<array{name: string, length: int, wait: float, processes: int, split_queues: array}> $workloads */
         $workloads = $this->workloadRepository->get();
 
         Collection::make($workloads)
