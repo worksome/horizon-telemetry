@@ -13,21 +13,26 @@
             "name": "Oliver Nybroe",
             "email": "oliver@worksome.com",
             "role": "Developer"
+        },
+        {
+            "name": "Owen Voke",
+            "email": "owen.voke@worksome.com",
+            "role": "Developer"
         }
     ],
     "require": {
         "php": "^8.3",
         "illuminate/contracts": "^11.0 || ^12.0",
-        "laravel/horizon": "^5.31",
-        "open-telemetry/api": "^1.0",
-        "worksome/laravel-telemetry": "^0.5.2"
+        "laravel/horizon": "^5.33",
+        "open-telemetry/api": "^1.4",
+        "worksome/laravel-telemetry": "^0.5.3"
     },
     "require-dev": {
-        "larastan/larastan": "^3.1",
-        "nunomaduro/collision": "^7.10 || ^8.1.1",
-        "orchestra/testbench": "^9.12 || ^10.1",
-        "pestphp/pest": "^3.7",
-        "pestphp/pest-plugin-laravel": "^3.1",
+        "larastan/larastan": "^3.6",
+        "nunomaduro/collision": "^7.12 || ^8.8",
+        "orchestra/testbench": "^9.14 || ^10.4",
+        "pestphp/pest": "^3.8",
+        "pestphp/pest-plugin-laravel": "^3.2",
         "worksome/coding-style": "^3.2"
     },
     "autoload": {

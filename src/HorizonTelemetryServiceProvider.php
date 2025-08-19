@@ -22,7 +22,7 @@ use Worksome\HorizonTelemetry\Metrics\CurrentProcessesMetric;
 
 class HorizonTelemetryServiceProvider extends ServiceProvider
 {
-    private const CONFIG_PATH = __DIR__ . '/../config/telemetry.php';
+    private const string CONFIG_PATH = __DIR__ . '/../config/telemetry.php';
 
     public function boot(): void
     {

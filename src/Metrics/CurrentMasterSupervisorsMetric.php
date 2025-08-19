@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Worksome\HorizonTelemetry\Metrics;
 
-use Illuminate\Support\Collection;
 use Laravel\Horizon\Contracts\MasterSupervisorRepository;
 use OpenTelemetry\API\Metrics\ObserverInterface;
 use Worksome\HorizonTelemetry\Enums\MeterName;
@@ -23,13 +22,13 @@ readonly class CurrentMasterSupervisorsMetric
     {
         $meter = $this->meterProvider->getMeter(MeterName::CurrentMasterSupervisors);
 
-        $masterSupervisors = Collection::make($this->masterSupervisorRepository->all());
+        $masterSupervisors = $this->masterSupervisorRepository->names();
 
         $meter->createObservableGauge(
             MeterName::CurrentMasterSupervisors->value,
             MeterUnit::MasterSupervisors->value,
             'The total number of master supervisors.',
-            fn (ObserverInterface $observer) => $observer->observe($masterSupervisors->count())
+            fn (ObserverInterface $observer) => $observer->observe(count($masterSupervisors))
         );
     }
 }
